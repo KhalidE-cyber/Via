@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VIA | The ultimate gym aggregator subscription. One membership, unlimited options.">
+    <title>VIA | فيا - Coming Soon</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <style>
+/* ==========================================================================
+   Base & Variables
+   ========================================================================== */
+:root {
+    /* 8px Spacing System */
+    --sp-1: 8px;
+    --sp-2: 16px;
+    --sp-3: 24px;
+    --sp-4: 32px;
+    --sp-5: 40px;
+    --sp-6: 48px;
+    --sp-8: 64px;
+    --sp-10: 80px;
+    --sp-12: 96px;
+
+    /* Theme Independent Colors */
+    --color-primary-accent: #ff6b35; /* Vibrant Orange */
+    --color-primary-accent-hover: #e85a25;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    
+    /* Light Theme Variables */
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --text-primary: #1a1f24; /* Dark Navy */
+    --text-secondary: #6c757d;
+    --logo-color: #1a1f24;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: rgba(0, 0, 0, 0.05);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    --input-border: #dee2e6;
+    --input-bg: #ffffff;
+}
+
+.theme-dark {
+    /* Dark Theme Variables */
+    --bg-primary: #0b0f19; /* Deeper Dark Navy */
+    --bg-secondary: #111827;
+    --text-primary: #f8f9fa;
+    --text-secondary: #a0aec0;
+    --logo-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --input-border: #374151;
+    --input-bg: #1f2937;
+}
+
+/* ==========================================================================
+   Reset & Typography
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.headline-ar {
+    font-family: 'Cairo', sans-serif;
+}
+
+/* ==========================================================================
+   Global Layout Structure
+   ========================================================================== */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--sp-4) var(--sp-6);
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--sp-10) var(--sp-4) var(--sp-6) var(--sp-4);
+}
+
+/* ==========================================================================
+   Theme Toggle
+   ========================================================================== */
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: var(--sp-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.theme-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.theme-toggle-btn:hover {
+    color: var(--color-primary-accent);
+}
+
+.theme-light .icon-sun { display: none; }
+.theme-light .icon-moon { display: block; }
+
+.theme-dark .icon-sun { display: block; }
+.theme-dark .icon-moon { display: none; }
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.section-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding-top: var(--sp-8);
+    position: relative;
+    z-index: 10;
+}
+
+.logo-container {
+    margin-bottom: var(--sp-6);
+}
+
+.via-logo {
+    width: 250px;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.headline-en {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--sp-1);
+}
+
+.headline-ar {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--text-secondary);
+    margin-bottom: var(--sp-3);
+    font-weight: 600;
+}
+
+.subtext {
+    font-size: 1.125rem;
+    color: var(--color-primary-accent);
+    margin-bottom: var(--sp-6);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* CTA Form */
+.cta-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+    .cta-form {
+        flex-direction: row;
+        border-radius: 50px;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        padding: 6px;
+        gap: 0;
+        box-shadow: var(--card-shadow);
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+}
+
+.cta-input {
+    flex-grow: 1;
+    padding: var(--sp-2) var(--sp-3);
+    border: 1px solid var(--input-border);
+    border-radius: 50px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 480px) {
+    .cta-input {
+        border: none;
+        background: transparent;
+        padding-left: var(--sp-3);
+    }
+}
+
+.cta-input:focus {
+    border-color: var(--color-primary-accent);
+}
+
+.cta-button {
+    background: var(--color-primary-accent);
+    color: var(--color-white);
+    border: none;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: 50px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+    background: var(--color-primary-accent-hover);
+    transform: translateY(-2px);
+}
+
+.cta-button .arrow-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover .arrow-icon {
+    transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   Concept Visualization Section
+   ========================================================================== */
+.section-concept {
+    margin-top: var(--sp-12);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.concept-visual {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin-bottom: var(--sp-8);
+}
+
+.orbit-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-card {
+    width: 100px;
+    height: 100px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 0 40px rgba(255, 107, 53, 0.2);
+    transition: background-color 0.4s ease;
+}
+
+.center-text {
+    color: var(--bg-primary);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.orbit-card {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--card-shadow);
+    z-index: 1;
+    transition: all 0.4s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+.orbit-card .gym-ph {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Orbit Positioning */
+.card-1 { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+.card-2 { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 1.5s; }
+.card-3 { left: 0; top: 50%; transform: translateY(-50%); animation-delay: 3s; }
+.card-4 { right: 0; top: 50%; transform: translateY(-50%); animation-delay: 4.5s; }
+
+.concept-microcopy {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   Value Props Section
+   ========================================================================== */
+.section-value-props {
+    margin-top: calc(var(--sp-12) + var(--sp-6));
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+    width: 100%;
+    max-width: 900px;
+}
+
+@media (min-width: 768px) {
+    .section-value-props {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--sp-4);
+    }
+}
+
+.prop-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.prop-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--sp-3);
+    color: var(--color-primary-accent);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, background-color 0.4s ease;
+}
+
+.prop-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.prop-item:hover .prop-icon {
+    transform: scale(1.1);
+}
+
+.prop-item p {
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+    width: 100%;
+    padding: var(--sp-8) var(--sp-4) var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-3);
+    margin-top: auto;
+}
+
+.social-links {
+    display: flex;
+    gap: var(--sp-3);
+}
+
+.social-btn {
+    color: var(--text-secondary);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.social-btn:hover {
+    color: var(--color-primary-accent);
+    transform: translateY(-2px);
+}
+
+.copyright {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes float {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -10px; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animation-fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+.animation-slide-up {
+    animation: slideUp 1s ease 0.3s forwards;
+    opacity: 0;
+}
+
+.animation-fade-in-delayed {
+    animation: fadeIn 1s ease 0.6s forwards;
+    opacity: 0;
+}
+
+/* Scroll Reveals */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+
+/* Reduced Motion Preference handling */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .orbit-card {
+        animation: none !important;
+    }
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+@keyframes dash {
+  0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 89, 200; stroke-dashoffset: -35px; }
+  100% { stroke-dasharray: 89, 200; stroke-dashoffset: -124px; }
+}
+
+</style>
+</head>
+<body class="theme-light">
+    <!-- Header with Theme Toggle -->
+    <header class="header">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </header>
+
+    <main class="main-content">
+        <!-- Section 1: Hero -->
+        <section class="section-hero">
+            <div class="logo-container animation-fade-in">
+                <!-- SVG VIA Logo -->
+                <svg viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="via-logo">
+                    <!-- Left V -->
+                    <path class="logo-path" d="M70 30 L120 120 L170 30" stroke="var(--logo-color)" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Center I -->
+                    <path class="logo-path" d="M210 30 L210 120" stroke="var(--logo-color)" stroke-width="25" stroke-linecap="round"/>
+                    <!-- Right A -->
+                    <path class="logo-path" d="M250 120 L300 30 L350 120" stroke="var(--logo-color)" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Orange Arrow Accent instead of crossbar -->
+                    <path class="logo-arrow" d="M275 120 L300 85 L325 120" stroke="var(--color-primary-accent)" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <div class="hero-text animation-slide-up">
+                <h1 class="headline-ar">اشتراك واحد، وصول لكل الأندية</h1>
+                <h2 class="headline-en" dir="ltr">Your access to every gym.</h2>
+                <p class="subtext">قريباً في الرياض</p>
+                
+                <form class="cta-form" id="early-access-form" onsubmit="event.preventDefault();">
+                    <input type="tel" id="phone-input" class="cta-input" placeholder="05XXXXXXXX" pattern="05[0-9]{8}" title="رقم جوال سعودي صحيح يبدأ بـ 05 ويتكون من 10 أرقام" required aria-label="رقم الجوال">
+                    <button type="submit" class="cta-button">
+                        احصل على وصول مبكر
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Section 2: Concept Visualization -->
+        <section class="section-concept animation-fade-in-delayed">
+            <div class="concept-visual">
+                <div class="orbit-container">
+                    <div class="center-card">
+                        <span class="center-text">VIA</span>
+                    </div>
+                    <div class="orbit-card card-1"><span class="gym-ph">HOLISTIC<br>GYM</span></div>
+                    <div class="orbit-card card-2"><span class="gym-ph">CARDIO<br>HUB</span></div>
+                    <div class="orbit-card card-3"><span class="gym-ph">IRON<br>CLUB</span></div>
+                    <div class="orbit-card card-4"><span class="gym-ph">SPORTS<br>PITCH</span></div>
+                </div>
+            </div>
+            <p class="concept-microcopy">اشتراك واحد. خيارات لا محدودة.</p>
+        </section>
+
+        <!-- Section 3: Value Props -->
+        <section class="section-value-props">
+            <div class="prop-item reveal-on-scroll">
+                <div class="prop-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                </div>
+                <p>أندية متعددة،<br>اشتراك واحد</p>
+            </div>
+            
+            <div class="prop-item reveal-on-scroll delay-1">
+                <div class="prop-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <p>دخول مرن</p>
+            </div>
+
+            <div class="prop-item reveal-on-scroll delay-2">
+                <div class="prop-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                </div>
+                <p>بدون التزامات<br>طويلة الأمد</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" aria-label="Instagram" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <a href="#" aria-label="X" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4l16 16M4 20L20 4"></path>
+                </svg>
+            </a>
+        </div>
+        <p class="copyright">© VIA 2026</p>
+    </footer>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Dark Mode Toggle ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    // Check initial preference from local storage or OS
+    const storedTheme = localStorage.getItem('via-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+        body.classList.replace('theme-light', 'theme-dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('theme-light')) {
+            body.classList.replace('theme-light', 'theme-dark');
+            localStorage.setItem('via-theme', 'dark');
+        } else {
+            body.classList.replace('theme-dark', 'theme-light');
+            localStorage.setItem('via-theme', 'light');
+        }
+    });
+
+    // --- Form Handling ---
+    const form = document.getElementById('early-access-form');
+    const phoneInput = document.getElementById('phone-input');
+    const submitBtn = document.querySelector('.cta-button');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyXS35LUNNdasOgfSM98GHS1uv32UXJc92FSyYNwLl438UKcz9HPWRTu8ztGcv8c8NB/exec';
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const phone = phoneInput.value;
+        if (phone && phone.match(/^05[0-9]{8}$/)) {
+            const originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<svg class="spinner" viewBox="0 0 50 50" style="width: 20px; height: 20px; margin-left: var(--sp-1); animation: rotate 2s linear infinite;"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" style="stroke-dasharray: 1, 200; stroke-dashoffset: 0; animation: dash 1.5s ease-in-out infinite;"></circle></svg> جاري التسجيل...`;
+            submitBtn.style.opacity = '0.8';
+            submitBtn.disabled = true;
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify({ phone: phone }),
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+            })
+            .then(response => {
+                submitBtn.innerHTML = `تم التسجيل بنجاح`;
+                submitBtn.style.backgroundColor = '#10B981';
+                submitBtn.style.opacity = '1';
+                phoneInput.value = '';
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.style.backgroundColor = ''; 
+                    submitBtn.disabled = false;
+                }, 4000);
+            })
+            .catch(error => {
+                submitBtn.innerHTML = 'حدث خطأ. حاول مرة أخرى.';
+                submitBtn.style.backgroundColor = '#EF4444';
+                submitBtn.style.opacity = '1';
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.style.backgroundColor = ''; 
+                    submitBtn.disabled = false;
+                }, 4000);
+            });
+        } else {
+             alert('الرجاء إدخال رقم جوال سعودي صحيح يبدأ بـ 05');
+        }
+    });
+
+    // --- Scroll Animations (Intersection Observer) ---
+    // Make sure we respect prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    if (!prefersReducedMotion.matches) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Unobserve after animating once
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        revealElements.forEach(el => observer.observe(el));
+    } else {
+        // If reduced motion is preferred, elements shouldn't be hidden
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        revealElements.forEach(el => el.classList.add('visible'));
+    }
+});
+
+</script>
+</body>
+</html>
